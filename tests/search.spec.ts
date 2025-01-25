@@ -1,12 +1,6 @@
 import {test} from '../fixtures/fixtures';
 import {cleanupDownloads} from "../helpers/file-helper";
 
-// test.use({
-//   launchOptions: {
-//     slowMo: 1000
-//   }
-// })
-
 test.beforeAll(async ()=>{
     await cleanupDownloads();
 })
@@ -15,7 +9,7 @@ test.beforeEach(async ({searchPage}) => {
     await searchPage.open()
     await searchPage.cookies.acceptCookies();
     await searchPage.searchBar.clickCategoryButton()
-    await searchPage.category.selectCategory()
+    await searchPage.category.selectCategory("Wallpapers")
     await searchPage.searchBar.fillSearchInput("moon")
     await searchPage.searchBar.clickSearchButton()
     await searchPage.resultsFilter.clickFilterButton("Price")
@@ -36,7 +30,7 @@ test('Search for free wallpapers', async ({searchPage}) => {
     await searchPage.results.expectCardsNotToHavePaidBadge();
 });
 
-test.only('Download free wallpaper', async ({searchPage, wallpaperView, page}) => {
+test('Download free wallpaper', async ({searchPage, wallpaperView, page}) => {
     await searchPage.price.checkFree()
     await searchPage.price.dismissDropdown()
     await searchPage.results.scrollDownUntilLoadMoreIsVisible()
@@ -44,7 +38,6 @@ test.only('Download free wallpaper', async ({searchPage, wallpaperView, page}) =
     await searchPage.results.clickCard()
     await wallpaperView.downloadWallpaper()
     await wallpaperView.assertDownloadedWallpaper()
-    //await page.pause()
 });
 
 

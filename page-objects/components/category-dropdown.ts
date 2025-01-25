@@ -7,8 +7,8 @@ export class CategoryDropdown extends Dropdown{
         super(page);
     }
 
-    async selectCategory() {
-        await this.dropdown.locator("label", {hasText: "Wallpapers"}).click()
+    async selectCategory(category: string) {
+        await this.dropdown.locator("label", {hasText: category}).click()
         await this.dropdown.waitFor({state: "hidden"});
     }
 
