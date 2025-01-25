@@ -7,22 +7,31 @@ import {SearchPage} from "../page-objects/search-page";
 //   }
 // })
 
-test('Search for wallpaper', async ({ page }) => {
+test.describe('', ()=>{
+  test.beforeEach(()=>{
 
-  const searchPage = new SearchPage(page)
-  await searchPage.open()
-  await searchPage.cookies.acceptCookies();
-  await searchPage.searchBar.clickCategoryButton()
-  await searchPage.category.selectCategory()
-  await searchPage.searchBar.fillSearchInput("moon")
-  await searchPage.searchBar.clickSearchButton()
-  await searchPage.resultsFilter.clickFilterButton("Price")
-  await searchPage.price.checkPaid()
-  await searchPage.price.dismissDropdown()
+  })
 
-  await searchPage.results.scrollDownUntilLoadMoreIsVisible()
+  test('Search for paid wallpapers', async ({ page }) => {
 
-  await searchPage.results.expectCardsToHavePaidBadge();
+    const searchPage = new SearchPage(page)
+    await searchPage.open()
+    await searchPage.cookies.acceptCookies();
+    await searchPage.searchBar.clickCategoryButton()
+    await searchPage.category.selectCategory()
+    await searchPage.searchBar.fillSearchInput("moon")
+    await searchPage.searchBar.clickSearchButton()
+    await searchPage.resultsFilter.clickFilterButton("Price")
+    await searchPage.price.checkPaid()
+    await searchPage.price.dismissDropdown()
 
-  //await page.pause();
-});
+    await searchPage.results.scrollDownUntilLoadMoreIsVisible()
+
+    await searchPage.results.expectCardsToHavePaidBadge();
+
+    //await page.pause();
+  });
+
+})
+
+
