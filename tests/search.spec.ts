@@ -1,10 +1,15 @@
 import {test} from '../fixtures/fixtures';
+import {cleanupDownloads} from "../helpers/file-helper";
 
 // test.use({
 //   launchOptions: {
 //     slowMo: 1000
 //   }
 // })
+
+test.beforeAll(async ()=>{
+    await cleanupDownloads();
+})
 
 test.beforeEach(async ({searchPage}) => {
     await searchPage.open()
@@ -38,6 +43,7 @@ test.only('Download free wallpaper', async ({searchPage, wallpaperView, page}) =
     await searchPage.results.expectCardsNotToHavePaidBadge();
     await searchPage.results.clickCard()
     await wallpaperView.downloadWallpaper()
+    await wallpaperView.assertDownloadedWallpaper()
     //await page.pause()
 });
 
