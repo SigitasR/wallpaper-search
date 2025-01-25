@@ -1,6 +1,6 @@
 import {Page} from "@playwright/test";
 
-export class SearchResultsFiler {
+export class SearchResultsFilter {
 
     private readonly searchResultFilterContainer = this.page
         .locator("div[data-direction]")

@@ -31,7 +31,12 @@ export class SearchResultsContainer {
         }
     }
 
-    async getResultCards(){
+    async clickCard(index = 0){
+        const cards = await this.getResultCards()
+        await cards[index].click()
+    }
+
+    private async getResultCards(){
         return this.searchResultContainer.locator("a.flex-col").all();
     }
 

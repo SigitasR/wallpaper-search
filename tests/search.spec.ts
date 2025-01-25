@@ -31,4 +31,14 @@ test('Search for free wallpapers', async ({searchPage}) => {
     await searchPage.results.expectCardsNotToHavePaidBadge();
 });
 
+test.only('Download free wallpaper', async ({searchPage, wallpaperView, page}) => {
+    await searchPage.price.checkFree()
+    await searchPage.price.dismissDropdown()
+    await searchPage.results.scrollDownUntilLoadMoreIsVisible()
+    await searchPage.results.expectCardsNotToHavePaidBadge();
+    await searchPage.results.clickCard()
+    await wallpaperView.downloadWallpaper()
+    //await page.pause()
+});
+
 
