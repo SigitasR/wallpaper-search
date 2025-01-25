@@ -6,4 +6,9 @@ export class Dropdown {
 
     constructor(protected readonly page: Page) {
     }
+
+    async dismissDropdown(){
+        await this.page.keyboard.press("Escape")
+    }
+
 }
