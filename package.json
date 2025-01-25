@@ -3,7 +3,12 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "format": "npx prettier . --write"
+        "format": "npx prettier . --write",
+        "test": "npx playwright test",
+        "test:download": "npx playwright test -g 'download'",
+        "test:free": "npx playwright test -g 'free wallpapers'",
+        "test:paid": "npx playwright test -g 'paid wallpapers'",
+        "report": "npx playwright show-report"
     },
     "keywords": [],
     "author": "",

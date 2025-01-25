@@ -12,7 +12,7 @@ export class SearchResultsContainer {
 
     async scrollDownUntilLoadMoreIsVisible() {
         do {
-            await this.page.mouse.wheel(0, 50);
+            await this.page.mouse.wheel(0, 200);
         } while (!(await this.loadMoreButton.isVisible()));
     }
 
@@ -32,9 +32,12 @@ export class SearchResultsContainer {
         }
     }
 
-    async clickCard(index = 0) {
+    async clickCard(index: number | 'last' | 'first') {
         const cards = await this.getResultCards();
-        await cards[index].click();
+
+        let targetIndex =
+            index === 'last' ? cards.length - 1 : index === 'first' ? 0 : index;
+        await cards[targetIndex].click();
     }
 
     private async getResultCards() {

@@ -37,14 +37,14 @@ test('Search for paid wallpapers', async ({ searchPage }) => {
 });
 
 test('Download free wallpaper', async ({ searchPage, wallpaperView, page }) => {
-    await searchPage.searchBar.fillSearchInput('stalker 2');
+    await searchPage.searchBar.fillSearchInput('wine');
     await searchPage.searchBar.clickSearchButton();
     await searchPage.resultsFilter.clickFilterButton('Price');
     await searchPage.price.checkFree();
     await searchPage.price.dismissDropdown();
     await searchPage.results.scrollDownUntilLoadMoreIsVisible();
     await searchPage.results.expectCardsNotToHavePaidBadge();
-    await searchPage.results.clickCard();
+    await searchPage.results.clickCard('last');
     await wallpaperView.downloadWallpaper();
     await wallpaperView.assertDownloadedWallpaper();
 });
