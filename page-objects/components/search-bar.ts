@@ -1,6 +1,6 @@
 import {Page} from "@playwright/test";
 
-export class Navbar {
+export class SearchBar {
 
     private readonly navContainer = this.page.locator("nav")
     private readonly searchForm = this.navContainer.locator("form")

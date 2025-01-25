@@ -1,10 +1,5 @@
 import { test } from '@playwright/test';
-import {Navbar} from "../page-objects/components/navbar";
-import {CookieDialog} from "../page-objects/components/cookie-dialog";
-import {SearchResultsFiler} from "../page-objects/components/search-results-filer";
-import {CategoryDropdown} from "../page-objects/components/category-dropdown";
-import {PriceDropdown} from "../page-objects/components/price-dropdown";
-import {SearchResultsContainer} from "../page-objects/components/search-results-container";
+import {SearchPage} from "../page-objects/search-page";
 
 // test.use({
 //   launchOptions: {
@@ -14,29 +9,20 @@ import {SearchResultsContainer} from "../page-objects/components/search-results-
 
 test('Search for wallpaper', async ({ page }) => {
 
-  const cookies = new CookieDialog(page)
-  const navbar = new Navbar(page)
-  const searchResultFilter = new SearchResultsFiler(page)
-  const categoryDropDown = new CategoryDropdown(page)
-  const priceDropdown = new PriceDropdown(page)
-  const searchResults = new SearchResultsContainer(page)
+  const searchPage = new SearchPage(page)
+  await searchPage.open()
+  await searchPage.cookies.acceptCookies();
+  await searchPage.searchBar.clickCategoryButton()
+  await searchPage.category.selectCategory()
+  await searchPage.searchBar.fillSearchInput("moon")
+  await searchPage.searchBar.clickSearchButton()
+  await searchPage.resultsFilter.clickFilterButton("Price")
+  await searchPage.price.checkPaid()
+  await searchPage.price.dismissDropdown()
 
-  await page.goto(process.env.URL);
+  await searchPage.results.scrollDownUntilLoadMoreIsVisible()
 
-  await cookies.acceptCookies();
-
-  await navbar.clickCategoryButton()
-  await categoryDropDown.selectCategory()
-  await navbar.fillSearchInput("moon")
-  await navbar.clickSearchButton()
-  await searchResultFilter.clickFilterButton("Price")
-  await priceDropdown.checkPaid()
-  await priceDropdown.dismissDropdown()
-
-  await searchResults.scrollDownUntilLoadMoreIsVisible()
-
-  await searchResults.expectCardsToHavePaidBadge();
+  await searchPage.results.expectCardsToHavePaidBadge();
 
   //await page.pause();
 });
-
