@@ -1,14 +1,13 @@
-import {Page} from "@playwright/test";
+import { Page } from '@playwright/test';
 
 export class Dropdown {
+    protected readonly dropdown = this.page.locator(
+        'div[data-radix-popper-content-wrapper]'
+    );
 
-    protected readonly dropdown = this.page.locator("div[data-radix-popper-content-wrapper]")
+    constructor(protected readonly page: Page) {}
 
-    constructor(protected readonly page: Page) {
+    async dismissDropdown() {
+        await this.page.keyboard.press('Escape');
     }
-
-    async dismissDropdown(){
-        await this.page.keyboard.press("Escape")
-    }
-
 }
