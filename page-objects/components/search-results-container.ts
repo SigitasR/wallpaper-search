@@ -1,4 +1,4 @@
-import { expect, Page } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
 
 export class SearchResultsContainer {
     private readonly searchResultContainer = this.page.locator(
@@ -35,12 +35,12 @@ export class SearchResultsContainer {
     async clickCard(index: number | 'last' | 'first') {
         const cards = await this.getResultCards();
 
-        let targetIndex =
+        const targetIndex =
             index === 'last' ? cards.length - 1 : index === 'first' ? 0 : index;
         await cards[targetIndex].click();
     }
 
-    private async getResultCards() {
+    private async getResultCards(): Promise<Locator[]> {
         return this.searchResultContainer.locator('a.flex-col').all();
     }
 }
