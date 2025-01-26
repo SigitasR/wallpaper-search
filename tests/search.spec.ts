@@ -36,7 +36,7 @@ test('Search for paid wallpapers', async ({ searchPage }) => {
     });
 });
 
-test('Download free wallpaper', async ({ searchPage, wallpaperView, page }) => {
+test('Download free wallpaper', async ({ searchPage, wallpaperView }) => {
     await searchPage.searchBar.fillSearchInput('wine');
     await searchPage.searchBar.clickSearchButton();
     await searchPage.resultsFilter.clickFilterButton('Price');
